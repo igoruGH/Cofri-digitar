@@ -1,0 +1,15 @@
+name: Teste do Cofre Digital
+on: [push] # Roda a automação toda vez que enviarmos código novo
+
+jobs:
+  testar-seguranca:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+        
+      - name: Rodar o aplicativo com o cofre aberto
+        env:
+          # Aqui pegamos o secret guardado no GitHub e injetamos no ambiente da máquina virtual!
+          SENHA_BANCO: ${{ secrets.SENHA_BANCO }}
+        run: python app.py
